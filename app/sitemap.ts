@@ -1,44 +1,26 @@
 import type { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://yamakura-construction.vercel.app'
-
   return [
     {
-      url: baseUrl,
+      url: 'https://yamakura-construction.vercel.app',
       lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 1,
     },
     {
-      url: `${baseUrl}/about`,
+      url: 'https://yamakura-construction.vercel.app/about',
       lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
     },
     {
-      url: `${baseUrl}/services`,
+      url: 'https://yamakura-construction.vercel.app/services',
       lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.9,
     },
     {
-      url: `${baseUrl}/works`,
+      url: 'https://yamakura-construction.vercel.app/works',
       lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.9,
     },
     {
-      url: `${baseUrl}/works/1`,
+      url: 'https://yamakura-construction.vercel.app/contact',
       lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
     },
   ]
 }
