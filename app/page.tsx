@@ -402,33 +402,6 @@ export default function HomePage() {
                 </p>
               </CardContent>
             </Card>
-
-            <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-              <Image
-                src="/images/cultural-hall.jpg"
-                alt="文化会館壁画移設工事"
-                width={400}
-                height={250}
-                className="w-full h-64 object-cover"
-              />
-              <CardContent className="p-6">
-                <Badge className="mb-3 bg-blue-100 text-blue-800">特殊工事</Badge>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">文化会館壁画移設工事</h3>
-                <div className="space-y-2 text-sm text-gray-600 mb-4">
-                  <div className="flex justify-between">
-                    <span>工事内容</span>
-                    <span>壁画の移設作業</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>特徴</span>
-                    <span>高度な技術が必要</span>
-                  </div>
-                </div>
-                <p className="text-gray-700 text-sm">
-                  文化的価値の高い壁画を慎重に移設。 繊細な作業が求められる特殊工事も対応可能です。
-                </p>
-              </CardContent>
-            </Card>
           </div>
 
           <div className="text-center mt-12">
