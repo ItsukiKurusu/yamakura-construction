@@ -92,7 +92,8 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <head>
-        <link rel="canonical" href="https://yamakura-construction.vercel.app" />
+        <meta name="google-site-verification" content="ここにコピーしたcontent値を貼り付け" />
+        <link rel="canonical" href="https://yamakura-construction-bz4kx3194-itsukikurusuaw-5549s-projects.vercel.app" />
         <meta name="geo.region" content="JP-25" />
         <meta name="geo.placename" content="大津市" />
         <meta name="geo.position" content="35.0116;135.8681" />
