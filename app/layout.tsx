@@ -41,15 +41,15 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://yamakura-construction.vercel.app"),
+  metadataBase: new URL("https://v0-construction-company-website-eta.vercel.app"),
   alternates: {
-    canonical: "/",
+    canonical: "https://v0-construction-company-website-eta.vercel.app",
   },
   openGraph: {
     title: "株式会社山蔵 | 滋賀・京都の建設会社 | 宮大工の技でつくる住まいの芸術",
     description:
       "滋賀・京都エリアの建設会社。宮大工の伝統技術と現代建築を融合し、新築住宅からリフォーム、社寺建築まで幅広く対応。",
-    url: "https://yamakura-construction.vercel.app",
+    url: "https://v0-construction-company-website-eta.vercel.app",
     siteName: "株式会社山蔵",
     locale: "ja_JP",
     type: "website",
@@ -92,8 +92,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <head>
-        <meta name="google-site-verification" content="ここにコピーしたcontent値を貼り付け" />
-        <link rel="canonical" href="https://yamakura-construction-bz4kx3194-itsukikurusuaw-5549s-projects.vercel.app" />
+        <link rel="canonical" href="https://v0-construction-company-website-eta.vercel.app" />
         <meta name="geo.region" content="JP-25" />
         <meta name="geo.placename" content="大津市" />
         <meta name="geo.position" content="35.0116;135.8681" />

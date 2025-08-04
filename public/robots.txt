@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://yamakura-construction-bz4kx3194-itsukikurusuaw-5549s-projects.vercel.app/sitemap.xml
+Sitemap: https://v0-construction-company-website-eta.vercel.app/sitemap.xml
