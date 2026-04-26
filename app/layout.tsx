@@ -2,6 +2,8 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
+import Navbar from "@/components/Navbar"
+import Footer from "@/components/Footer"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -80,7 +82,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: "google-site-verification-code-here", // 後で設定
+    google: "google-site-verification-code-here",
   },
 }
 
@@ -98,7 +100,11 @@ export default function RootLayout({
         <meta name="geo.position" content="35.0116;135.8681" />
         <meta name="ICBM" content="35.0116, 135.8681" />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Navbar />
+        <main>{children}</main>
+        <Footer />
+      </body>
     </html>
   )
 }
