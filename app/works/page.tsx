@@ -15,7 +15,7 @@ export default function WorksPage() {
   const works = [
     {
       id: 1,
-      title: "阪本7丁目事務所建築",
+      title: "坂本７丁目事務所建築",
       category: "新築工事",
       image: "/images/sakamoto-office.jpg",
       period: "2024年11月～2025年2月",
@@ -23,7 +23,7 @@ export default function WorksPage() {
       description:
         "田んぼだった土地に事務所を新築。お客様から「こんな金額でできたんですか！？」と驚きの声をいただきました。",
       details: "更地から事務所建築",
-      features: ["鉄骨造", "事務所用途", "駐車場完備", "省エネ設計"],
+      features: ["木造", "事務所用途", "駐車場20台", "省エネ設計"],
       categoryColor: "bg-blue-100 text-blue-800",
     },
     {
@@ -76,7 +76,7 @@ export default function WorksPage() {
     },
     {
       id: 7,
-      title: "伊香立市民会館 新築",
+      title: "伊香立市民センター 新築",
       category: "新築工事",
       image: "/images/ikadachi-hero.jpg",
       period: "2025年〜",

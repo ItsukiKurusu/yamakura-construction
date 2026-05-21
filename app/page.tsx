@@ -362,7 +362,7 @@ export default function HomePage() {
                 <div className="overflow-hidden">
                   <Image
                     src="/images/sakamoto-office.jpg"
-                    alt="阪本7丁目事務所建築"
+                    alt="坂本７丁目事務所建築"
                     width={400}
                     height={250}
                     className="w-full h-64 object-cover hover:scale-105 transition-transform duration-500"
@@ -370,7 +370,7 @@ export default function HomePage() {
                 </div>
                 <CardContent className="p-6">
                   <Badge className="mb-3 bg-gray-100 text-black">新築工事</Badge>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">阪本7丁目事務所建築</h3>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">坂本７丁目事務所建築</h3>
                   <div className="space-y-2 text-sm text-gray-600 mb-4">
                     <div className="flex justify-between">
                       <span>工期</span>
