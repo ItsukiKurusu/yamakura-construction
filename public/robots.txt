@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://v0-construction-company-website-eta.vercel.app/sitemap.xml
