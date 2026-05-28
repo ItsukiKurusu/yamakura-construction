@@ -238,7 +238,7 @@ export default function RecruitPage() {
           <FadeInLeft>
             <div className="relative h-72 md:h-full min-h-[420px]">
               <Image
-                src="/images/kansai-line-customer.jpg"
+                src="/images/sakamoto-office.jpg"
                 alt="現場での大工作業"
                 fill
                 className="object-cover"
@@ -478,32 +478,36 @@ export default function RecruitPage() {
 
               {/* Representative message with photo */}
               <FadeInRight>
-                <div className="relative rounded-2xl overflow-hidden shadow-xl h-full min-h-[420px]">
-                  <Image
-                    src="/images/yamaguchi.jpg"
-                    alt="代表 山口祐介"
-                    fill
-                    className="object-cover object-top"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/20" />
-                  <div className="absolute bottom-0 left-0 right-0 p-7 text-white">
-                    <p className="text-amber-300 text-xs tracking-widest uppercase mb-3">Message from CEO</p>
-                    <h3 className="text-xl font-bold mb-4">代表からのメッセージ</h3>
-                    <p className="text-white/85 text-sm leading-relaxed mb-3">
+                <Card className="overflow-hidden shadow-xl h-full">
+                  {/* 写真エリア：テキストと完全に分離 */}
+                  <div className="relative h-64 sm:h-72">
+                    <Image
+                      src="/images/yamaguchi.jpg"
+                      alt="代表 山口祐介"
+                      fill
+                      className="object-cover object-top"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-gray-900/40" />
+                  </div>
+                  {/* テキストエリア：写真の下に独立配置 */}
+                  <CardContent className="p-7 bg-gray-900 text-white space-y-4">
+                    <p className="text-amber-300 text-xs tracking-widest uppercase">Message from CEO</p>
+                    <h3 className="text-xl font-bold">代表からのメッセージ</h3>
+                    <p className="text-white/85 text-sm leading-relaxed">
                       宮大工で修業を積み、一級建築士の資格も取得しました。
                       現場の技術も設計知識も兼ね備えた職人集団として、
                       お客様に喜んでいただくことを最大の目標にしています。
                     </p>
-                    <p className="text-white/85 text-sm leading-relaxed mb-5">
+                    <p className="text-white/85 text-sm leading-relaxed">
                       一緒に汗をかき、腕を磨いていける仲間を心よりお待ちしています。
                       わからないことは何でも聞ける環境を整えていますので、安心してご応募ください。
                     </p>
-                    <div className="flex items-center space-x-3">
+                    <div className="flex items-center space-x-3 pt-1">
                       <div className="w-px h-8 bg-amber-400" />
                       <p className="font-semibold text-amber-300">代表　山口 祐介</p>
                     </div>
-                  </div>
-                </div>
+                  </CardContent>
+                </Card>
               </FadeInRight>
             </div>
           </div>
