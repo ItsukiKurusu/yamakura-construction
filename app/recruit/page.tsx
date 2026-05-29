@@ -479,15 +479,18 @@ export default function RecruitPage() {
               {/* Representative message with photo */}
               <FadeInRight>
                 <Card className="overflow-hidden shadow-xl h-full">
-                  {/* 写真エリア：テキストと完全に分離 */}
-                  <div className="relative h-64 sm:h-72">
+                  {/* 写真エリア：高さを十分に確保して顔が隠れないように */}
+                  <div className="relative h-96 sm:h-[420px]">
                     <Image
                       src="/images/yamaguchi.jpg"
                       alt="代表 山口祐介"
                       fill
                       className="object-cover object-top"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-gray-900/40" />
+                    {/* 透かしオーバーレイ */}
+                    <div className="absolute inset-0 bg-black/20" />
+                    {/* 下部のみグラデーションで暗くする */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-gray-900/70" />
                   </div>
                   {/* テキストエリア：写真の下に独立配置 */}
                   <CardContent className="p-7 bg-gray-900 text-white space-y-4">
