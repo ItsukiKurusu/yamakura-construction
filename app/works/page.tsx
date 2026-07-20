@@ -42,9 +42,9 @@ export default function WorksPage() {
       id: 4,
       title: "住宅新築工事",
       category: "新築工事",
-      image: "/images/new-construction.jpg",
-      period: "2024年春～夏",
-      location: "滋賀県大津市",
+      image: "/images/shintiku1.jpg",
+      period: "",
+      location: "",
       description: "お客様のこだわりを活かした木造住宅。宮大工の技術を現代住宅に融合させました。",
       details: "木造2階建て住宅",
       features: ["木造軸組工法", "自然素材使用", "耐震等級3", "省エネ住宅"],
@@ -207,7 +207,7 @@ export default function WorksPage() {
                       </div>
                     </div>
 
-                    {work.id === 1 ? (
+                    {work.id === 1 || work.id === 4 ? (
                       <Link href={`/works/${work.id}`}>
                         <Button
                           variant="outline"

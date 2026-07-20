@@ -90,6 +90,27 @@ const worksData = {
       完成予定: "2025年2月",
     },
   },
+  "4": {
+    id: 4,
+    title: "住宅新築工事",
+    category: "新築工事",
+    categoryColor: "bg-blue-100 text-blue-800",
+    mainImage: "/images/shintiku1.jpg",
+    images: ["/images/shintiku1.jpg", "/images/shintiku2.jpg", "/images/shintiku3.jpg"],
+    period: "",
+    location: "",
+    client: "",
+    structure: "",
+    floors: "",
+    totalArea: "",
+    budget: "",
+    description: "お客様のこだわりを活かした木造住宅。宮大工の技術を現代住宅に融合させました。",
+    overview: "山蔵組が手がけた住宅新築工事の施工事例です。",
+    features: [],
+    process: [],
+    customerVoice: null,
+    specs: {},
+  },
 }
 
 export default function WorkDetailPage({ params }: { params: { id: string } }) {
@@ -194,26 +215,55 @@ export default function WorkDetailPage({ params }: { params: { id: string } }) {
         </div>
       </section>
 
+      {/* Gallery Section */}
+      {work.images.filter((img) => !img.includes("placeholder")).length > 1 && (
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <FadeIn className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900">施工写真</h2>
+            </FadeIn>
+            <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {work.images
+                .filter((img) => !img.includes("placeholder"))
+                .map((img, index) => (
+                  <StaggerItem key={index}>
+                    <Image
+                      src={img || "/placeholder.svg"}
+                      alt={`${work.title} ${index + 1}`}
+                      width={600}
+                      height={400}
+                      className="w-full h-64 object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
+                    />
+                  </StaggerItem>
+                ))}
+            </StaggerContainer>
+          </div>
+        </section>
+      )}
+
       {/* Features Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <FadeIn className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900">プロジェクトの特徴</h2>
-          </FadeIn>
-          <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {work.features.map((feature, index) => (
-              <StaggerItem key={index}>
-                <div className="flex items-start space-x-3 bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
-                  <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
-                  <span className="text-gray-700">{feature}</span>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </div>
-      </section>
+      {work.features.length > 0 && (
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <FadeIn className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900">プロジェクトの特徴</h2>
+            </FadeIn>
+            <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {work.features.map((feature, index) => (
+                <StaggerItem key={index}>
+                  <div className="flex items-start space-x-3 bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
+                    <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
+                    <span className="text-gray-700">{feature}</span>
+                  </div>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </div>
+        </section>
+      )}
 
       {/* Process Section */}
+      {work.process.length > 0 && (
       <section className="py-16">
         <div className="container mx-auto px-4">
           <FadeIn className="text-center mb-12">
@@ -263,8 +313,10 @@ export default function WorkDetailPage({ params }: { params: { id: string } }) {
           </div>
         </div>
       </section>
+      )}
 
       {/* Specifications */}
+      {Object.keys(work.specs).length > 0 && (
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <FadeIn className="text-center mb-12">
@@ -288,8 +340,10 @@ export default function WorkDetailPage({ params }: { params: { id: string } }) {
           </FadeIn>
         </div>
       </section>
+      )}
 
       {/* Customer Voice */}
+      {work.customerVoice && (
       <section className="py-16">
         <div className="container mx-auto px-4">
           <FadeIn className="text-center mb-12">
@@ -328,6 +382,7 @@ export default function WorkDetailPage({ params }: { params: { id: string } }) {
           </div>
         </div>
       </section>
+      )}
 
       {/* CTA Section */}
       <section className="py-20 bg-black">
