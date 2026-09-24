@@ -12,6 +12,10 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+  		fontFamily: {
+  			// 読み込み前・読み込めないときは端末の明朝で代わりに出す
+  			mincho: ['var(--font-mincho)', 'Hiragino Mincho ProN', 'Yu Mincho', 'YuMincho', 'serif'],
+  		},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

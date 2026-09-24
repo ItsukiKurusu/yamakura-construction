@@ -1,3 +1,19 @@
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "会社案内",
+  description:
+    "株式会社山蔵の会社概要・代表挨拶。宮大工で修業を積みながら一級建築士の資格を取得した代表が、滋賀県大津市を拠点に木造住宅から社寺建築までを手がけています。",
+  // **下層ページは自分自身を正規 URL として申告する。**
+  // ルートの設定を継ぐと全ページがトップを指し、下層が検索結果から消える
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "会社案内 | 株式会社山蔵",
+    description: "株式会社山蔵の会社概要・代表挨拶。宮大工で修業を積みながら一級建築士の資格を取得した代表が、滋賀県大津市を拠点に木造住宅から社寺建築までを手がけています。",
+    url: "/about",
+  },
+}
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -13,7 +29,7 @@ export default function AboutPage() {
       <section className="bg-gradient-to-r from-amber-50 to-orange-50 pt-28 pb-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">会社案内</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="font-mincho text-xl [word-break:auto-phrase] text-gray-600 max-w-3xl mx-auto">
             宮大工の伝統技術と現代建築の融合で、お客様の理想を形にします
           </p>
         </div>
@@ -62,7 +78,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-4">
           <FadeIn className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">会社概要</h2>
-            <p className="text-xl text-gray-600">株式会社山蔵の基本情報</p>
+            <p className="font-mincho text-xl [word-break:auto-phrase] text-gray-600">株式会社山蔵の基本情報</p>
           </FadeIn>
 
           <FadeIn>
@@ -119,7 +135,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-4">
           <FadeIn className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">保有資格・許可</h2>
-            <p className="text-xl text-gray-600">確かな技術と信頼の証</p>
+            <p className="font-mincho text-xl [word-break:auto-phrase] text-gray-600">確かな技術と信頼の証</p>
           </FadeIn>
 
           <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -179,7 +195,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-4">
           <FadeIn className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">経営理念</h2>
-            <p className="text-xl text-gray-600">私たちが大切にしていること</p>
+            <p className="font-mincho text-xl [word-break:auto-phrase] text-gray-600">私たちが大切にしていること</p>
           </FadeIn>
 
           <FadeIn>
@@ -193,7 +209,7 @@ export default function AboutPage() {
                   <div className="space-y-4 text-gray-700 leading-relaxed">
                     <p>
                       私たちは、お客様の笑顔と満足が何よりも大切だと考えています。
-                      宮大工の伝統技術と現代建築の知識を融合させ、 お客様一人ひとりのご要望に心を込めてお応えします。
+                      宮大工の伝統技術と現代建築の知識を融合させ、お客様一人ひとりのご要望に心を込めてお応えします。
                     </p>
                     <p>
                       小さな会社だからこそできる、きめ細やかなサービスと適正価格で、
@@ -212,7 +228,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-4">
           <FadeIn className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">スタッフ紹介</h2>
-            <p className="text-xl text-gray-600">経験豊富な職人たちがお客様をサポート</p>
+            <p className="font-mincho text-xl [word-break:auto-phrase] text-gray-600">経験豊富な職人たちがお客様をサポート</p>
           </FadeIn>
 
           <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-2xl mx-auto">
@@ -258,7 +274,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-4">
           <FadeIn className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">採用情報</h2>
-            <p className="text-xl text-gray-600">一緒に働く仲間を募集しています</p>
+            <p className="font-mincho text-xl [word-break:auto-phrase] text-gray-600">一緒に働く仲間を募集しています</p>
           </FadeIn>
 
           <FadeIn>

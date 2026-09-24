@@ -3,7 +3,8 @@
 import { motion } from "framer-motion"
 import type { ReactNode } from "react"
 
-const ease = [0.22, 1, 0.36, 1]
+// cubic-bezier は 4 要素タプルとして渡す必要がある（number[] だと代入できない）
+const ease: [number, number, number, number] = [0.22, 1, 0.36, 1]
 
 interface Props {
   children: ReactNode

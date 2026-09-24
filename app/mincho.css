@@ -1,0 +1,17 @@
+/* scripts/build-mincho.py が書き出す。手で編集しない */
+
+@font-face {
+  font-family: 'Shippori Mincho Site';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/shippori-mincho-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Shippori Mincho Site';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/shippori-mincho-700.woff2') format('woff2');
+}

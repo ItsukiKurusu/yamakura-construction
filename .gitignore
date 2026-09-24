@@ -25,3 +25,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# design reference material (not for publication)
+/references
+
+# テクスチャ確認用（公開しない）
+/.texture-preview

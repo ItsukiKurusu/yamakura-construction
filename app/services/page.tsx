@@ -1,3 +1,19 @@
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "事業内容",
+  description:
+    "新築住宅・リフォーム・外構・社寺建築・公共工事・建物監理。一級建築士の資格を持つ宮大工が、設計から施工まで一貫してお引き受けします。",
+  // **下層ページは自分自身を正規 URL として申告する。**
+  // ルートの設定を継ぐと全ページがトップを指し、下層が検索結果から消える
+  alternates: { canonical: "/services" },
+  openGraph: {
+    title: "事業内容 | 株式会社山蔵",
+    description: "新築住宅・リフォーム・外構・社寺建築・公共工事・建物監理。一級建築士の資格を持つ宮大工が、設計から施工まで一貫してお引き受けします。",
+    url: "/services",
+  },
+}
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Phone, CheckCircle, Users, Wrench, Building, Hammer, TreePine, Shield } from "lucide-react"
@@ -176,8 +192,8 @@ export default function ServicesPage() {
       <section className="bg-gradient-to-r from-amber-50 to-orange-50 py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">事業内容</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            新築住宅から文化財修復まで、宮大工の伝統技術と現代建築の融合で、 幅広い建築工事に対応いたします。
+          <p className="font-mincho text-xl [word-break:auto-phrase] text-gray-600 max-w-3xl mx-auto">
+            新築住宅から文化財修復まで、宮大工の伝統技術と現代建築の融合で、幅広い建築工事に対応いたします。
           </p>
         </div>
       </section>
@@ -268,7 +284,7 @@ export default function ServicesPage() {
         <div className="container mx-auto px-4">
           <FadeIn className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">選ばれる理由</h2>
-            <p className="text-xl text-gray-600">なぜ多くのお客様に選ばれているのか</p>
+            <p className="font-mincho text-xl [word-break:auto-phrase] text-gray-600">なぜ多くのお客様に選ばれているのか</p>
           </FadeIn>
 
           <StaggerContainer className="grid md:grid-cols-3 gap-8">
@@ -322,7 +338,7 @@ export default function ServicesPage() {
             <div className="max-w-3xl mx-auto">
               <h2 className="text-3xl font-bold text-white mb-6">お気軽にご相談ください</h2>
               <p className="text-xl text-gray-300 mb-8">
-                どんな小さな工事でも、まずはお気軽にお問い合わせください。 無料でお見積もりいたします。
+                どんな小さな工事でも、まずはお気軽にお問い合わせください。無料でお見積もりいたします。
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" className="bg-white text-black hover:bg-gray-100" asChild>

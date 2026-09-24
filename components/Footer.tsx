@@ -8,19 +8,24 @@ export default function Footer() {
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-3 gap-12">
           <div>
-            <div className="flex items-center space-x-3 mb-5">
-              <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
-                <Image
-                  src="/images/logo.jpg"
-                  alt="株式会社山蔵ロゴ"
-                  width={32}
-                  height={32}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold">株式会社山蔵</h3>
-                <p className="text-sm text-gray-400">宮大工の技でつくる、住まいの芸術</p>
+            {/* メニューバーと同じ組み方（白いマーク＋明朝の社名） */}
+            <div className="mb-5 flex items-center gap-3">
+              <Image
+                src="/images/logo-mark-white-sm.webp"
+                alt=""
+                width={256}
+                height={261}
+                className="h-11 w-11 shrink-0 object-contain"
+              />
+              <span aria-hidden="true" className="h-9 w-px bg-white/25" />
+              <div className="font-mincho leading-none">
+                <h3 className="flex items-baseline gap-1.5">
+                  <span className="text-[11px] font-medium tracking-[0.2em] text-gray-400">株式会社</span>
+                  <span className="text-[22px] font-extrabold tracking-[0.22em]">山蔵</span>
+                </h3>
+                <p className="mt-1.5 text-[10.5px] font-medium tracking-[0.2em] text-gray-400">
+                  宮大工の技でつくる、住まいの芸術
+                </p>
               </div>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">

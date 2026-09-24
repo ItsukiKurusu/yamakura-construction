@@ -113,9 +113,8 @@ export default function WorksPage() {
         <div className="container mx-auto px-4">
           <div className="text-center">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">施工実績</h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-              新築住宅から文化財修復まで、これまでに手がけた代表的な施工事例をご紹介します。
-              宮大工の伝統技術と現代建築の融合をご覧ください。
+            <p className="font-mincho text-xl [word-break:auto-phrase] text-gray-600 max-w-3xl mx-auto mb-8">
+              新築住宅から文化財修復まで、これまでに手がけた代表的な施工事例をご紹介します。宮大工の伝統技術と現代建築の融合をご覧ください。
             </p>
             <div className="flex items-center justify-center space-x-4 text-sm text-gray-600">
               <div className="flex items-center space-x-1">
@@ -240,7 +239,7 @@ export default function WorksPage() {
         <div className="container mx-auto px-4">
           <FadeIn className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">施工実績数</h2>
-            <p className="text-xl text-gray-600">これまでの実績をご紹介</p>
+            <p className="font-mincho text-xl [word-break:auto-phrase] text-gray-600">これまでの実績をご紹介</p>
           </FadeIn>
 
           <StaggerContainer className="grid md:grid-cols-4 gap-8">
@@ -271,7 +270,7 @@ export default function WorksPage() {
             <div className="max-w-3xl mx-auto">
               <h2 className="text-3xl font-bold text-white mb-6">お客様の理想を形にします</h2>
               <p className="text-xl text-gray-300 mb-8">
-                新築・リフォーム・特殊工事まで、どんなご要望でもお気軽にご相談ください。 無料でお見積もりいたします。
+                新築・リフォーム・特殊工事まで、どんなご要望でもお気軽にご相談ください。無料でお見積もりいたします。
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" className="bg-white text-black hover:bg-gray-100" asChild>

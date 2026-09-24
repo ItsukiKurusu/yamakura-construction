@@ -48,43 +48,56 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* ロゴ */}
-          <Link href="/" className="flex items-center space-x-3">
-            <div
-              className={`w-11 h-11 rounded-lg flex items-center justify-center overflow-hidden transition-all duration-300 ${
-                transparent
-                  ? "bg-white/20 backdrop-blur-sm border border-white/30"
-                  : "bg-white border border-gray-200"
+          {/* ロゴ。マークは白地の箱に入れず、背景に合わせて白と墨色を差し替える。
+              社名とサブ見出しは明朝で字間を開け、看板の彫り文字の品に寄せる */}
+          <Link href="/" className="flex items-center gap-3">
+            <span className="relative block h-11 w-11 shrink-0">
+              <Image
+                src="/images/logo-mark-white-sm.webp"
+                alt=""
+                width={256}
+                height={261}
+                className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-300 ${
+                  transparent ? "opacity-100" : "opacity-0"
+                }`}
+              />
+              <Image
+                src="/images/logo-mark-black.webp"
+                alt=""
+                width={256}
+                height={261}
+                className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-300 ${
+                  transparent ? "opacity-0" : "opacity-100"
+                }`}
+              />
+            </span>
+            <span
+              aria-hidden="true"
+              className={`hidden h-9 w-px transition-colors duration-300 sm:block ${
+                transparent ? "bg-white/35" : "bg-gray-300"
+              }`}
+            />
+            <span
+              className={`flex flex-col font-mincho leading-none transition-colors duration-300 ${
+                transparent ? "text-white" : "text-gray-900"
               }`}
             >
-              <Image
-                src="/images/logo.jpg"
-                alt="株式会社山蔵ロゴ"
-                width={40}
-                height={40}
-                className="w-full h-full object-contain"
-              />
-            </div>
-            <div>
-              <p
-                className={`text-lg font-bold leading-tight transition-colors duration-300 ${
-                  transparent ? "text-white" : "text-gray-900"
-                }`}
-              >
-                株式会社山蔵
-              </p>
-              <p
-                className={`text-xs transition-colors duration-300 ${
+              <span className="flex items-baseline gap-1.5">
+                <span className="text-[11px] font-medium tracking-[0.2em] opacity-75">株式会社</span>
+                <span className="text-[22px] font-extrabold tracking-[0.22em]">山蔵</span>
+              </span>
+              <span
+                className={`mt-1.5 text-[10.5px] font-medium tracking-[0.2em] transition-colors duration-300 ${
                   transparent ? "text-white/70" : "text-gray-500"
                 }`}
               >
                 宮大工の技でつくる、住まいの芸術
-              </p>
-            </div>
+              </span>
+            </span>
           </Link>
 
           {/* デスクトップナビ */}
-          <nav className="hidden md:flex items-center space-x-7">
+          <nav className="hidden lg:flex items-center space-x-5 xl:space-x-7">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -110,8 +123,10 @@ export default function Navbar() {
           </nav>
 
           {/* デスクトップCTA */}
-          <div className="hidden md:flex items-center space-x-4">
-            <div className="text-right">
+          <div className="hidden lg:flex items-center space-x-4">
+            {/* 一番かさばるうえ、フッターにも同じ内容がある。
+                狭いところでは落として、ナビと問い合わせボタンを優先する */}
+            <div className="hidden text-right xl:block">
               <p className={`text-xs transition-colors duration-300 ${transparent ? "text-white/70" : "text-gray-500"}`}>
                 お気軽にお電話ください
               </p>
@@ -134,7 +149,7 @@ export default function Navbar() {
 
           {/* モバイルメニューボタン */}
           <button
-            className={`md:hidden p-2 transition-colors ${
+            className={`lg:hidden p-2 transition-colors ${
               transparent ? "text-white hover:text-white/80" : "text-gray-700 hover:text-black"
             }`}
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -153,7 +168,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="md:hidden overflow-hidden bg-white border-t border-gray-100"
+            className="lg:hidden overflow-hidden bg-white border-t border-gray-100"
           >
             <nav className="container mx-auto px-4 py-4 flex flex-col space-y-1">
               {navLinks.map((link) => (

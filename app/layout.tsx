@@ -2,10 +2,17 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
+import "./mincho.css"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import SmoothScrollProvider from "@/components/SmoothScrollProvider"
 
 const inter = Inter({ subsets: ["latin"] })
+
+// 見出しと導入文の明朝体（しっぽり明朝）は next/font を使わず自前で配る。
+// next/font のままだと日本語の断片を 244 個・約 7.5MB 読んでいた。
+// scripts/build-mincho.py がサイトで使う文字だけに絞り、太さ 2 つで計 約 290KB にしている。
+// 本文・ボタン・数字・フォームはゴシックのまま（小さい明朝はスマホで細く掠れる）
 
 export const metadata: Metadata = {
   title: {
@@ -44,8 +51,11 @@ export const metadata: Metadata = {
     telephone: false,
   },
   metadataBase: new URL("https://v0-construction-company-website-eta.vercel.app"),
+  // metadataBase からの相対。**各ページは自分の layout / page で上書きする。**
+  // ここに絶対 URL を書くと、下層ページまでトップページを正規 URL として
+  // 申告してしまい、検索結果から下層が消える
   alternates: {
-    canonical: "https://v0-construction-company-website-eta.vercel.app",
+    canonical: "/",
   },
   openGraph: {
     title: "株式会社山蔵 | 滋賀・京都の建設会社 | 宮大工の技でつくる住まいの芸術",
@@ -57,7 +67,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/logo.jpg",
+        url: "/images/og.jpg",
         width: 1200,
         height: 630,
         alt: "株式会社山蔵 - 宮大工の技でつくる住まいの芸術",
@@ -68,7 +78,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "株式会社山蔵 | 滋賀・京都の建設会社",
     description: "宮大工の伝統技術と現代建築を融合した家づくり",
-    images: ["/images/logo.jpg"],
+    images: ["/images/og.jpg"],
   },
   robots: {
     index: true,
@@ -81,9 +91,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    google: "google-site-verification-code-here",
-  },
 }
 
 export default function RootLayout({
@@ -94,16 +101,21 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <head>
-        <link rel="canonical" href="https://v0-construction-company-website-eta.vercel.app" />
+        {/* 社名と見出し（700）は最初の画面に出るので先に取りにいく */}
+        <link rel="preload" href="/fonts/shippori-mincho-700.woff2" as="font" type="font/woff2" crossOrigin="" />
         <meta name="geo.region" content="JP-25" />
         <meta name="geo.placename" content="大津市" />
         <meta name="geo.position" content="35.0116;135.8681" />
         <meta name="ICBM" content="35.0116, 135.8681" />
       </head>
       <body className={inter.className}>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        {/* Lenis はトップだけでなく全ページに掛ける。
+            トップのみだと下層とスクロールの手触りが変わり一貫性が崩れるため。 */}
+        <SmoothScrollProvider>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </SmoothScrollProvider>
       </body>
     </html>
   )

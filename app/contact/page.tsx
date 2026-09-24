@@ -21,9 +21,53 @@ export default function ContactPage() {
     message: "",
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  /**
+   * 送信の状態。
+   * **"sent" は、サーバーが受け付けたときにだけ立てる。**
+   * 以前はここで無条件に「ありがとうございます」と出していたが、
+   * 実際には何も送られておらず、問い合わせが静かに消えていた。
+   */
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error" | "unconfigured">(
+    "idle"
+  )
+  const [errorMessage, setErrorMessage] = useState("")
+  /** 機械よけ。人には見えない項目で、埋まっていればサーバー側で捨てる */
+  const [company, setCompany] = useState("")
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    alert("お問い合わせありがとうございます。後日ご連絡いたします。")
+    if (status === "sending") return
+
+    setStatus("sending")
+    setErrorMessage("")
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, company }),
+      })
+
+      if (res.ok) {
+        setStatus("sent")
+        setFormData({ name: "", email: "", phone: "", subject: "", message: "" })
+        return
+      }
+
+      // 501 = 送信の設定がまだ済んでいない。お客様のせいではないので、
+      // 電話と LINE をご案内する
+      if (res.status === 501) {
+        setStatus("unconfigured")
+        return
+      }
+
+      const data = await res.json().catch(() => ({}))
+      setErrorMessage(data.error || "送信に失敗しました。お手数ですがお電話ください。")
+      setStatus("error")
+    } catch {
+      setErrorMessage("通信に失敗しました。お手数ですがお電話ください。")
+      setStatus("error")
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -52,8 +96,8 @@ export default function ContactPage() {
       <section className="bg-gradient-to-r from-amber-50 to-orange-50 py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">お問い合わせ</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            新築・リフォーム・修復工事など、どんなことでもお気軽にご相談ください。 無料でお見積もりいたします。
+          <p className="font-mincho text-xl [word-break:auto-phrase] text-gray-600 max-w-3xl mx-auto">
+            新築・リフォーム・修復工事など、どんなことでもお気軽にご相談ください。無料でお見積もりいたします。
           </p>
         </div>
       </section>
@@ -63,7 +107,7 @@ export default function ContactPage() {
         <div className="container mx-auto px-4">
           <FadeIn className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">お問い合わせ方法</h2>
-            <p className="text-xl text-gray-600">お客様のご都合に合わせてお選びください</p>
+            <p className="font-mincho text-xl [word-break:auto-phrase] text-gray-600">お客様のご都合に合わせてお選びください</p>
           </FadeIn>
 
           <StaggerContainer className="grid md:grid-cols-3 gap-8 mb-16">
@@ -151,7 +195,7 @@ export default function ContactPage() {
           <div className="max-w-4xl mx-auto">
             <FadeIn className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">お問い合わせフォーム</h2>
-              <p className="text-xl text-gray-600">下記フォームにご記入の上、送信してください</p>
+              <p className="font-mincho text-xl [word-break:auto-phrase] text-gray-600">下記フォームにご記入の上、送信してください</p>
             </FadeIn>
 
             <FadeIn>
@@ -256,10 +300,66 @@ export default function ContactPage() {
                       </p>
                     </div>
 
-                    <Button type="submit" size="lg" className="w-full bg-black hover:bg-gray-800">
+                    {/* 機械よけ。目にも読み上げにも触れさせない */}
+                    <div className="hidden" aria-hidden="true">
+                      <label htmlFor="company">会社名</label>
+                      <input
+                        id="company"
+                        name="company"
+                        type="text"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        value={company}
+                        onChange={(e) => setCompany(e.target.value)}
+                      />
+                    </div>
+
+                    <Button
+                      type="submit"
+                      size="lg"
+                      disabled={status === "sending"}
+                      className="w-full bg-black hover:bg-gray-800 disabled:opacity-60"
+                    >
                       <Send className="w-5 h-5 mr-2" />
-                      送信する
+                      {status === "sending" ? "送信中…" : "送信する"}
                     </Button>
+
+                    {/* 結果。読み上げにも届くように aria-live を付ける */}
+                    <div aria-live="polite">
+                      {status === "sent" && (
+                        <p className="rounded-lg bg-green-50 p-4 text-sm text-green-900">
+                          お問い合わせを受け付けました。担当者より折り返しご連絡いたします。
+                        </p>
+                      )}
+
+                      {status === "unconfigured" && (
+                        <div className="rounded-lg bg-amber-50 p-4 text-sm text-gray-800">
+                          <p className="mb-2 font-semibold">
+                            申し訳ありません。ただいまフォームからの送信を受け付けられません。
+                          </p>
+                          <p>
+                            お手数ですが、お電話（
+                            <a href="tel:077-576-3727" className="font-bold underline">
+                              077-576-3727
+                            </a>
+                            ）または LINE よりご連絡ください。
+                          </p>
+                        </div>
+                      )}
+
+                      {status === "error" && (
+                        <div className="rounded-lg bg-red-50 p-4 text-sm text-gray-800">
+                          <p className="mb-2 font-semibold">{errorMessage}</p>
+                          <p>
+                            お急ぎの場合は
+                            <a href="tel:077-576-3727" className="font-bold underline">
+                              077-576-3727
+                            </a>
+                            までお電話ください。
+                          </p>
+                        </div>
+                      )}
+                    </div>
                   </form>
                 </CardContent>
               </Card>
@@ -274,7 +374,7 @@ export default function ContactPage() {
           <div className="max-w-4xl mx-auto">
             <FadeIn className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">会社情報</h2>
-              <p className="text-xl text-gray-600">お気軽にお越しください</p>
+              <p className="font-mincho text-xl [word-break:auto-phrase] text-gray-600">お気軽にお越しください</p>
             </FadeIn>
 
             <div className="grid md:grid-cols-2 gap-12">
@@ -362,7 +462,7 @@ export default function ContactPage() {
             <div className="max-w-3xl mx-auto">
               <h2 className="text-3xl font-bold text-white mb-6">まずはお気軽にご相談ください</h2>
               <p className="text-xl text-gray-300 mb-8">
-                どんな小さなことでも、お客様のご要望をお聞かせください。 経験豊富な職人が、最適なご提案をいたします。
+                どんな小さなことでも、お客様のご要望をお聞かせください。経験豊富な職人が、最適なご提案をいたします。
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" className="bg-white text-black hover:bg-gray-100" asChild>

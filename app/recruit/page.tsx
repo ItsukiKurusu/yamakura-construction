@@ -181,7 +181,7 @@ export default function RecruitPage() {
         <div className="container mx-auto px-4">
           <FadeIn className="text-center mb-14">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">山蔵で働く魅力</h2>
-            <p className="text-xl text-gray-600">小さな会社だからこそ実現できる、充実した環境</p>
+            <p className="font-mincho text-xl [word-break:auto-phrase] text-gray-600">小さな会社だからこそ実現できる、充実した環境</p>
           </FadeIn>
           <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {appealPoints.map((point) => (
@@ -306,7 +306,7 @@ export default function RecruitPage() {
         <div className="container mx-auto px-4">
           <FadeIn className="text-center mb-14">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">1日のスケジュール</h2>
-            <p className="text-xl text-gray-600">標準的な1日の流れをご紹介します</p>
+            <p className="font-mincho text-xl [word-break:auto-phrase] text-gray-600">標準的な1日の流れをご紹介します</p>
           </FadeIn>
 
           <div className="grid md:grid-cols-2 gap-12 items-start max-w-5xl mx-auto">
@@ -394,7 +394,7 @@ export default function RecruitPage() {
           <div className="max-w-4xl mx-auto">
             <FadeIn className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">募集要項</h2>
-              <p className="text-xl text-gray-600">応募前にご確認ください</p>
+              <p className="font-mincho text-xl [word-break:auto-phrase] text-gray-600">応募前にご確認ください</p>
             </FadeIn>
             <FadeIn>
               <Card className="overflow-hidden shadow-md">
@@ -448,7 +448,7 @@ export default function RecruitPage() {
           <div className="max-w-5xl mx-auto">
             <FadeIn className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">求める人物像</h2>
-              <p className="text-xl text-gray-600">こんな方と一緒に働きたい</p>
+              <p className="font-mincho text-xl [word-break:auto-phrase] text-gray-600">こんな方と一緒に働きたい</p>
             </FadeIn>
 
             <div className="grid md:grid-cols-2 gap-8">
