@@ -153,3 +153,93 @@ body {
 .motion-stopped .craft-grain {
   animation: none;
 }
+
+/* ===== 3D ヒーローの「山蔵の考え方」（components/PhilosophyLines.tsx）=====
+   --t は scrollChoreography が書く。-1 入る前 / -1→0 入ってくる / 0 表示中 / 0→1 消えていく / 1 消えた。
+   入りは左から大きく滑り込み、出は右へ少しだけ流れて消える。ぼかしは入りと出の途中だけ掛かる */
+.philosophy {
+  /* スマホは画面下の中央。天主は画面の中ほどに収まるので、その下に置く */
+  bottom: 11%;
+  padding: 0 1.25rem;
+  text-align: center;
+}
+/* PC は天主が画面の中央に来るので、空いている左の 3 分の 1 に縦中央で置き、文節で折り返す */
+@media (min-width: 768px) {
+  .philosophy {
+    bottom: auto;
+    top: 50%;
+    right: auto;
+    translate: 0 -50%;
+    width: min(32rem, 40vw);
+    padding: 0 0 0 clamp(2rem, 5vw, 5rem);
+    text-align: left;
+  }
+}
+
+.philosophy-line {
+  --t: -1;
+  --a: max(var(--t), calc(-1 * var(--t))); /* |t| */
+  opacity: calc(1 - var(--a));
+  transform: translateX(calc(min(var(--t), 0) * 56px + max(var(--t), 0) * 24px));
+  filter: blur(calc(var(--a) * 8px));
+  will-change: opacity, transform, filter;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+@media (min-width: 768px) {
+  .philosophy-line {
+    align-items: flex-start;
+  }
+}
+
+/* 篝火の明るい場面でも読めるよう、文字の後ろにだけごく薄い暗がり */
+.philosophy-line::before {
+  content: "";
+  position: absolute;
+  inset: -40% -12%;
+  z-index: -1;
+  background: radial-gradient(closest-side, rgba(6, 6, 9, 0.5), rgba(6, 6, 9, 0));
+}
+
+.philosophy-num {
+  font-family: var(--font-mincho), "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.philosophy-num::after {
+  content: "";
+  display: block;
+  width: 2.5rem;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.philosophy-text {
+  position: relative;
+  font-family: var(--font-mincho), "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-weight: 700;
+  font-size: clamp(1.2rem, 5.2vw, 1.6rem);
+  line-height: 1.6;
+  letter-spacing: 0.1em;
+  color: #fff;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.85);
+  word-break: auto-phrase;
+}
+
+@media (min-width: 768px) {
+  .philosophy-text {
+    font-size: clamp(1.4rem, 2.3vw, 2.2rem);
+  }
+}
+
+.motion-stopped [data-philosophy] {
+  display: none;
+}

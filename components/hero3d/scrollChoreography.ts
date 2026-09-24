@@ -1,6 +1,8 @@
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
+import { PHILOSOPHY, lineState } from "@/lib/philosophy"
+
 import { SCROLL_DISTANCE, TEXT_FADE } from "./constants"
 
 /**
@@ -37,6 +39,10 @@ export function createChoreography(
   gsap.registerPlugin(ScrollTrigger)
 
   const targets: ScrollTargets = { progress: 0 }
+  // 幕ごとの「山蔵の考え方」の行（components/PhilosophyLines.tsx）。
+  // 行ごとの状態 --t（-1 入る前 … 0 表示中 … 1 消えた）だけを書き、見た目は CSS に任せる
+  const findLines = () => Array.from(trigger.querySelectorAll<HTMLElement>("[data-philosophy-line]"))
+  let lines = findLines()
 
   function applyProgress(p: number) {
     targets.progress = p
@@ -50,6 +56,13 @@ export function createChoreography(
     trigger.style.setProperty("--hero-text-opacity", String(textOpacity))
     // 透明な要素がクリックを吸うのを防ぐ（よくある事故）
     trigger.style.setProperty("--hero-text-events", textOpacity < 0.05 ? "none" : "auto")
+
+    // React が描き直して要素が差し替わったら拾い直す（開発中のホットリロードなど）
+    if (lines.length > 0 && !lines[0].isConnected) lines = findLines()
+    lines.forEach((el, i) => {
+      const line = PHILOSOPHY.lines[i]
+      if (line) el.style.setProperty("--t", lineState(p, line.from, line.to).toFixed(4))
+    })
   }
 
   applyProgress(0)

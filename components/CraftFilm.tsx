@@ -10,7 +10,7 @@ import { useMotionState } from "@/components/motion-state"
  *
  * - 映像は scripts/build-craft-video.sh で作った 18 秒のループ（継ぎ目なし）
  * - 上端は 3D の夜の暗さから溶け出すように黒から始める
- * - 旧トップの筆文字をここで主役に戻す（letter-hd.webp は元画像を 3 倍に締め直したもの）
+ * - 旧トップのキャッチコピーをここで主役に戻す（明朝の文字で組む）
  * - 画面に近づくまで読み込まない。画面外では止める。動きを止めた人には静止画だけを出す
  */
 
@@ -132,7 +132,7 @@ export default function CraftFilm() {
       media.style.transform = `scale(${ramp(p, [0, 0.5], [1.12, 1])})`
       // 夜の黒から明けていく。文字が読める暗さで止める
       shade.style.opacity = String(ramp(p, [0.05, 0.45, 0.8, 1], [1, 0.42, 0.42, 0.75]))
-      // 筆文字は左から書き進めるように現れる
+      // 言葉は左から書き進めるように現れる
       letter.style.clipPath = `inset(-10% ${ramp(p, [0.3, 0.5], [100, 0])}% -10% 0)`
       letter.style.opacity = String(ramp(p, [0.28, 0.36], [0, 1]))
     }
@@ -191,18 +191,12 @@ export default function CraftFilm() {
       </div>
 
       <div ref={letterRef} className="relative z-10 w-full max-w-5xl px-6">
-        {/* next/image は使わない。透過 WebP をそのまま、縮小だけで出す */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/images/letter-hd.webp"
-          alt="後世に繋げる、人も家も呼吸する建物。"
-          width={3555}
-          height={921}
-          loading="lazy"
-          decoding="async"
-          className="mx-auto h-auto w-full"
-          style={{ filter: "drop-shadow(0 4px 18px rgba(0,0,0,0.7))" }}
-        />
+        {/* 以前は旧トップの筆文字の画像だったが、全体の明朝の中で浮くので文字で組む。
+            ヒーローの「山蔵の考え方」の行と同じ書体・同じ白で、物語の最後の一行として続ける */}
+        <h2 className="text-center font-mincho text-[clamp(1.6rem,7vw,4.25rem)] font-bold leading-[1.55] tracking-[0.12em] text-white [text-shadow:0_4px_24px_rgba(0,0,0,0.8)]">
+          <span className="block">後世に繋げる、</span>
+          <span className="block">人も家も呼吸する建物。</span>
+        </h2>
       </div>
     </section>
   )

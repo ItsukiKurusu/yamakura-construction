@@ -13,7 +13,7 @@ import { createScene } from "./scene"
 import { createChoreography } from "./scrollChoreography"
 import { createCameraPath, type CameraPose } from "./cameraPath"
 import { createSoundEngine, synthKnock, type SoundEngine } from "./sound"
-import { BREATH, CLAD_END, LAMBDA, POINTER_SHIFT, STILL_POSE } from "./constants"
+import { BREATH, CLAD_END, COAST, LAMBDA, POINTER_SHIFT, STILL_POSE } from "./constants"
 
 /**
  * React のライフサイクルと three を繋ぐ層。
@@ -172,16 +172,25 @@ export default function HeroCanvas({ onReady, onProgress }: Props) {
       // タブが見えているか。**ScrollTrigger の生成時にコールバックが即座に呼ばれる**
       // ことがあるので、それより前に宣言しておく（後ろだと未初期化で落ちる）
       let documentVisible = document.visibilityState !== "hidden"
-      // ピンを抜けた瞬間に描画を止めると、**最後の 1 枚が描かれないまま固まる**。
-      // 遅延追従の途中の姿勢が焼き付いて、完成形が一度も画面に出ない。
-      // 抜けたことを検知したら、目標値へ飛ばして 1 枚だけ描く。
-      let finalFrame = false
       const choreo = createChoreography(trigger ?? canvas, (active) => {
-        if (!active && sceneActive) finalFrame = true
         sceneActive = active
         // ヒーローを抜けたら音も静かに消す
         soundRef.current?.setActive(active && documentVisible)
       })
+
+      // 描くかどうかは「ピンの中にいるか」ではなく「画面に見えているか」で決める。
+      // ピンを抜けた直後も、ヒーローは作業場の場面に覆われながらしばらく画面に残る。
+      // そこで描画を止めると、回っていた画が急に静止画になる。
+      // 最初は画面の一番上にいるので true から始める（観測の初回通知を待たない）
+      let heroOnScreen = true
+      const screenWatch = new IntersectionObserver(([e]) => {
+        heroOnScreen = e.isIntersecting
+      })
+      screenWatch.observe(trigger ?? canvas)
+
+      // 完成後の回転（constants.ts の COAST）。角度は度で持つ
+      let coastAngle = 0
+      let coastSpeed = 0
 
       // 目標値に向かって遅延追従する実体。**進行度ただ一つ**。
       // カメラも部材もここから引くので、両者がずれることが原理的に無い。
@@ -223,6 +232,10 @@ export default function HeroCanvas({ onReady, onProgress }: Props) {
         bundle.tenshu.setProgress(p)
         path.sample(p, aspect(), pose)
         applyFov()
+
+        // 完成後の回転。orbitAround は正の角度で方位角が減る向きに回るので、符号を反転して
+        // 通り道と同じ向きに回し続ける
+        if (coastAngle !== 0) orbitAround(pose.pos, pose.look, -THREE.MathUtils.degToRad(coastAngle))
 
         // 呼吸: 何もしていなくてもごくゆっくり動き続ける。
         // 止まっている時間を作らないことが「生きている」印象に繋がる
@@ -282,19 +295,25 @@ export default function HeroCanvas({ onReady, onProgress }: Props) {
       // --- レンダーループ ---
       const tick = (time: number, deltaMs: number) => {
         if (!documentVisible) return
-        // ピンを抜けて画面外にいる間は描かない。これが一番効く省力化。
-        // ただし抜けた直後の 1 枚だけは描く（上のコメント参照）
-        if (!sceneActive && !finalFrame) return
+        // 画面の外にいる間は描かない。これが一番効く省力化
+        if (!heroOnScreen) return
 
         // gsap.ticker の delta はミリ秒。タブ復帰直後の巨大な値は切り捨てる
         const dt = Math.min(deltaMs / 1000, 0.1)
 
-        if (finalFrame) {
-          finalFrame = false
-          progress = choreo.targets.progress
-        } else {
-          // フレームレート非依存の指数減衰。`x += (target - x) * 0.1` は使わない
-          progress = damp(progress, choreo.targets.progress, LAMBDA.progress, dt)
+        // フレームレート非依存の指数減衰。`x += (target - x) * 0.1` は使わない
+        progress = damp(progress, choreo.targets.progress, LAMBDA.progress, dt)
+
+        // 完成後の回転。最後の場面に入ったら時間で回り、戻ったら止まって元の通り道へ寄せる
+        const coasting = progress >= COAST.from
+        coastSpeed += ((coasting ? COAST.speed : 0) - coastSpeed) * dampAlpha(COAST.lambda, dt)
+        if (coasting) {
+          coastAngle = (coastAngle + coastSpeed * dt) % 360
+        } else if (coastAngle !== 0) {
+          // 近い方へ戻す（350 度ずれていたら 10 度戻すだけにする）
+          if (coastAngle > 180) coastAngle -= 360
+          coastAngle = damp(coastAngle, 0, COAST.returnLambda, dt)
+          if (Math.abs(coastAngle) < 0.01) coastAngle = 0
         }
 
         // ポインタ追従の慣性
@@ -332,6 +351,7 @@ export default function HeroCanvas({ onReady, onProgress }: Props) {
       // --- 後始末 ---
       cleanup = () => {
         gsap.ticker.remove(tick)
+        screenWatch.disconnect()
         choreo.kill() // pin した ScrollTrigger と pin-spacer を確実に外す
         detachResize()
         document.removeEventListener("visibilitychange", onVisibility)

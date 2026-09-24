@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge"
 import { FadeIn, FadeInLeft, FadeInRight, StaggerContainer, StaggerItem } from "@/components/motion-utils"
 import HeroLoader from "@/components/hero3d/HeroLoader"
 import CraftFilm from "@/components/CraftFilm"
+import PhilosophyLines from "@/components/PhilosophyLines"
 
 // three.js は下層ページに載せない。
 // ssr: false なので、サーバー側では一切評価されない（three は window を触る）。
@@ -147,6 +148,9 @@ export default function HomePage() {
             </motion.div>
           </div>
         </div>
+
+        {/* 幕ごとに 1 行ずつ現れる「山蔵の考え方」。出し入れはスクロールが決める */}
+        <PhilosophyLines />
 
         {/* Framer Motion は opacity をインラインで書くため、CSS 変数を直接
             motion.div に当てると上書きされる。外側の素の div で包んで退場させる。 */}
