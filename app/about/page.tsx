@@ -92,9 +92,9 @@ export default function AboutPage() {
                       <div className="flex justify-between py-3 border-b border-gray-200">
                         <span className="font-medium text-gray-600">所在地</span>
                         <span className="font-semibold text-gray-900">
-                          〒520-0105
+                          〒520-0113
                           <br />
-                          滋賀県大津市下坂本3-14-27
+                          滋賀県大津市坂本5-26-7
                         </span>
                       </div>
                       <div className="flex justify-between py-3 border-b border-gray-200">

@@ -154,7 +154,7 @@ export default function HomePage() {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">所在地</span>
-                      <span className="font-medium">滋賀県大津市下坂本3-14-27</span>
+                      <span className="font-medium">滋賀県大津市坂本5-26-7</span>
                     </div>
                   </div>
                 </div>
@@ -543,8 +543,8 @@ export default function HomePage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-2">所在地</h3>
-                      <p className="text-gray-700">〒520-0105</p>
-                      <p className="text-gray-700">滋賀県大津市下坂本3-14-27</p>
+                      <p className="text-gray-700">〒520-0113</p>
+                      <p className="text-gray-700">滋賀県大津市坂本5-26-7</p>
                       <p className="text-gray-600 mt-1">対応エリア：滋賀県・京都府</p>
                     </div>
                   </div>

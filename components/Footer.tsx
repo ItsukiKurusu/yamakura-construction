@@ -69,7 +69,7 @@ export default function Footer() {
             <div className="space-y-3 text-sm text-gray-400">
               <div className="flex items-start space-x-2.5">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span>滋賀県大津市下坂本3-14-27</span>
+                <span>滋賀県大津市坂本5-26-7</span>
               </div>
               <div className="flex items-center space-x-2.5">
                 <Clock className="w-4 h-4 flex-shrink-0" />

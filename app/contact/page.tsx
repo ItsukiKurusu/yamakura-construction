@@ -286,8 +286,8 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-2">所在地</h3>
-                      <p className="text-gray-700">〒520-0105</p>
-                      <p className="text-gray-700">滋賀県大津市下坂本3-14-27</p>
+                      <p className="text-gray-700">〒520-0113</p>
+                      <p className="text-gray-700">滋賀県大津市坂本5-26-7</p>
                       <p className="text-gray-600 mt-1">対応エリア：滋賀県・京都府</p>
                     </div>
                   </div>
@@ -339,7 +339,7 @@ export default function ContactPage() {
                     </div>
                     <Button variant="outline" className="mt-4 bg-transparent" asChild>
                       <a
-                        href="https://maps.google.com/?q=滋賀県大津市下坂本3-14-27"
+                        href="https://maps.google.com/?q=滋賀県大津市坂本5-26-7"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
